@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse
+from graphical_pwd_auth.settings import N
 
 
 def home_page(request):
@@ -6,7 +7,14 @@ def home_page(request):
 
 
 def register_page(request):
-    return HttpResponse('<h1> Register </h1>')
+
+    if request.method == 'POST':
+        return HttpResponse('posted')
+    else:
+        data = {
+            'gpwd': [[False] * N] * N,
+        }
+        return render(request, 'register.html', context=data)
 
 
 def login_page(request):
