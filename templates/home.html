@@ -1,1 +1,20 @@
-<h1>Graphical Password Authentication</h1>
+{% extends 'base.html' %}
+
+{% block title %}
+Home Page
+{% endblock %}
+
+
+{% block content %}
+<h1>Auth status: {{request.user.is_authenticated}}</h1>
+<br>
+<br>
+<p>
+    Depending on the Auth status, you will be seeing login/logout button at the top right.
+    <br>
+    <br>
+    Login: &nbsp&nbsp&nbspTo continue login
+    <br>
+    Logout: To sign out of the application
+</p>
+{% endblock %}
