@@ -8,12 +8,13 @@
     <div class="row">
         {% for col in row %}
         <div class="col">
-
+            <!-- {{ forloop.parentloop.counter0  }}-{{ forloop.counter0  }} -->
             <img src="{% static "images/crypto.jpg" %}" alt="img" style="
                 height: 50px;
                 width: 50px;
                 max-height: 100%;
-                max-width: 100%;">
+                max-width: 100%;" id="{{ forloop.parentloop.counter0  }}-{{ forloop.counter0  }}"
+                onclick="onSelect({{forloop.parentloop.counter0}}, {{forloop.counter0}})">
         </div>
         {% endfor %}
     </div>
