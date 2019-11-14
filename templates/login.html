@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Login Page
+{% endblock %}
+
+
+{% block content %}
+<div class="mx-auto" style="width: 400px; padding: 32px 0px">
+    <div class="content-section">
+        <form class="" action="" method="post" id="post-form">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Login</legend>
+            </fieldset>
+
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username">
+            </div>
+
+            <br>
+            {% include 'pwd.html' %}
+
+            <br>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-outline-info">Sign In</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Don't have an account? <a href="{% url 'register' %}" class="ml-2">Sign Up</a>
+            </small>
+        </div>
+    </div>
+</div>
+
+<script>
+    var gpwd_set = new Set();
+
+    function onSelect(r, c) {
+        var res = r.toString() + c.toString();
+        if (gpwd_set.has(res)) {
+            console.log('true');
+            gpwd_set.delete(res);
+        } else {
+            gpwd_set.add(res);
+        }
+
+        console.log(gpwd_set);
+    }
+
+    function post(path, params, method = 'post') {
+
+        // The rest of this code assumes you are not using a library.
+        // It can be made less wordy if you use one.
+        const form = document.getElementById('post-form');
+        form.method = method;
+        form.action = path;
+
+        for (const key in params) {
+            if (params.hasOwnProperty(key)) {
+                const hiddenField = document.createElement('input');
+                hiddenField.type = 'hidden';
+                hiddenField.name = key;
+                hiddenField.value = params[key];
+
+                form.appendChild(hiddenField);
+            }
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+
+    // Submit post on submit
+    var form = document.getElementById('post-form');
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        console.log("form submitted!");
+        post('', {
+            username: document.getElementById('username').value,
+            password: Array.from(gpwd_set),
+        })
+    });
+</script>
+{% endblock %}

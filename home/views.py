@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
+from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.models import User
 from graphical_pwd_auth.settings import N
 
@@ -25,8 +26,26 @@ def register_page(request):
 
 
 def login_page(request):
-    return HttpResponse('<h1> Login </h1>')
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        print(username, password)
+        user = authenticate(username=username, password=password, request=request)
+        if user is not None:
+            login(request, user)
+            messages.success(request, 'Login successfull!')
+            return redirect('home')
+        else:
+            messages.warning(request, 'Wrong credentials!')
+            return redirect('login')
+    else:
+        data = {
+            'gpwd': [[False] * N] * N,
+        }
+        return render(request, 'login.html', context=data)
 
 
 def logout_page(request):
-    return HttpResponse('<h1> Logout </h1>')
+    logout(request)
+    messages.warning(request, 'You\'ve been logged out!')
+    return redirect('home')
