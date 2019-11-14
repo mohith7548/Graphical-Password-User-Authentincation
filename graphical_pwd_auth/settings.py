@@ -123,4 +123,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+# Password Grid NxN
 N = 5
+
+# Threshold block attempts
+TBA = 3

@@ -19,6 +19,11 @@ Register Page
                 <input type="text" class="form-control" id="username">
             </div>
 
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email">
+            </div>
+
             <br>
             {% include 'pwd.html' %}
 
@@ -90,6 +95,7 @@ Register Page
         console.log("form submitted!");
         post('', {
             username: document.getElementById('username').value,
+            email: document.getElementById('email').value,
             password: Array.from(gpwd_set),
         })
     });
