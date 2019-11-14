@@ -6,6 +6,7 @@ Home Page
 
 
 {% block content %}
+<h1>Welcome {{ request.user.username }}</h1>
 <h1>Auth status: {{request.user.is_authenticated}}</h1>
 <br>
 <br>

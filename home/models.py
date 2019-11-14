@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 
 class LoginInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    fails = models.PositiveIntegerField()
+    fails = models.PositiveSmallIntegerField(default=0)
+    link = models.CharField(unique=True, blank=True, null=True, max_length=225)
 
     def __str__(self):
         return self.user.username

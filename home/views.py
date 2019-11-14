@@ -2,9 +2,10 @@ from django.shortcuts import render, HttpResponse, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.models import User
-from graphical_pwd_auth.settings import N, TBA
+from django.core.mail import EmailMessage
+from graphical_pwd_auth.settings import N, TBA, EMAIL_HOST_USER, ALLOWED_HOSTS
 from .models import LoginInfo
-import random
+import random, uuid
 
 
 def get_pwd_imgs():
@@ -34,10 +35,33 @@ def isBlocked(username):
     except Exception:
         return None
     print('isBlocked: {} - {}'.format(user.logininfo, TBA))
-    if user.logininfo.fails > TBA:
+    if user.logininfo.fails >= TBA:
         return True
     else:
         return False
+
+
+def sendLoginLinkMailToUser(username):
+    user = User.objects.get(username=username)
+    # send email only id user.logininfo.link is not 'NO_LINK'
+    if user.logininfo.link is None:
+        link = str(uuid.uuid4())
+        user.logininfo.link = link
+        user.logininfo.save()
+        email = EmailMessage(
+            subject='Link to Log in to your account',
+            body='''
+            Someone tried to bruteforce on your account.
+            Click the Link to Login to your account directly.
+            link: http://{}:8000/login/{}
+            '''.format(ALLOWED_HOSTS[0], link), # might wanna change the allowd_host
+            from_email=EMAIL_HOST_USER,
+            to=[user.email],
+        )
+        email.send()
+        print('LOGIN LINK EMAIL SENT')
+    else:
+        pass
 
 
 def home_page(request):
@@ -80,7 +104,9 @@ def login_page(request):
             return redirect('login')
 
         elif block_status == True:
-            # Blocked
+            # Blocked - send login link to email
+            # check if previously sent, if not send
+            sendLoginLinkMailToUser(username)
             messages.warning(request, 'Your account is Blocked, please check your Email!')
             return redirect('login')
         else:
@@ -102,6 +128,22 @@ def login_page(request):
             'p_images': get_pwd_imgs(),
         }
         return render(request, 'login.html', context=data)
+
+
+def login_from_uid(request, uid):
+    try:
+        # get user from the uid and reset the Link to 'NO_LINK' again
+        login_info = LoginInfo.objects.get(link=uid)
+        user = login_info.user
+        login(request, user)
+        update_login_info(user, True)
+        login_info.link = None
+        login_info.save()
+        messages.success(request, 'Login successfull!')
+    except Exception:
+        messages.warning(request, 'Invalid Link. Please check again!')
+
+    return redirect('home')
 
 
 def logout_page(request):
