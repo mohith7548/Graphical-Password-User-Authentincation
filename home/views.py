@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, logout, login
 from django.contrib.auth.models import User
 from graphical_pwd_auth.settings import N
+import random
 
 
 def home_page(request):
@@ -14,12 +15,24 @@ def register_page(request):
         username = request.POST['username']
         password = request.POST['password']
         print(username, password)
-        user = User.objects.create_user(username=username, password=password)
-        messages.success(request, 'Account created successfully!')
+        try:
+            user = User.objects.create_user(username=username, password=password)
+            messages.success(request, 'Account created successfully!')
+        except Exception:
+            # print(e)
+            messages.warning(request, 'Error while creating Account!')
+        
         return redirect('home')
     else:
+        images = random.sample(range(1, 50), N * N)
+        print(images)
+        p_images = []
+        for i in range(0, N * N, 5):
+            p_images.append(images[i:i+5])
+        print(p_images)
+
         data = {
-            'gpwd': [[False] * N] * N,
+            'p_images': p_images,
         }
         return render(request, 'register.html', context=data)
 
@@ -38,8 +51,15 @@ def login_page(request):
             messages.warning(request, 'Wrong credentials!')
             return redirect('login')
     else:
+        images = random.sample(range(1, 50), N * N)
+        print(images)
+        p_images = []
+        for i in range(0, N * N, 5):
+            p_images.append(images[i:i+5])
+        print(p_images)
+
         data = {
-            'gpwd': [[False] * N] * N,
+            'p_images': p_images,
         }
         return render(request, 'login.html', context=data)
 
