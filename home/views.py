@@ -10,7 +10,6 @@ def home_page(request):
 
 
 def register_page(request):
-
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
