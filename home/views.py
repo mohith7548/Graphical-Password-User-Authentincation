@@ -13,8 +13,8 @@ def get_pwd_imgs():
     images = random.sample(range(1, 50), N * N)
     print(images)
     p_images = []
-    for i in range(0, N * N, 5):
-        p_images.append(images[i:i+5])
+    for i in range(0, N * N, N):
+        p_images.append(images[i:i+N])
     print(p_images)
     return p_images
     

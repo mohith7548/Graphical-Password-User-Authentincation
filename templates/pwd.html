@@ -5,9 +5,9 @@
     <br>
     <br>
     {% for row in p_images %}
-    <div class="row">
+    <div class="row no-gutters">
         {% for col in row %}
-        <div class="col">
+        <div class="col-2 no-gutters">
             <!-- {{ forloop.parentloop.counter0  }}-{{ forloop.counter0  }} -->
             <img src='{% static 'images/pwd/' %}{{ col }}.png' alt=" img" style="
                 height: 50px;
@@ -16,6 +16,6 @@
         </div>
         {% endfor %}
     </div>
-    <br>
+    <div style="padding-bottom: 15px;"></div>
     {% endfor %}
 </div>
