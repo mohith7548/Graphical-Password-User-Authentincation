@@ -11,9 +11,7 @@
             <!-- {{ forloop.parentloop.counter0  }}-{{ forloop.counter0  }} -->
             <img src='{% static 'images/pwd/' %}{{ col }}.png' alt=" img" style="
                 height: 50px;
-                width: 50px;
-                max-height: 100%;
-                max-width: 100%;" id="{{ forloop.parentloop.counter0  }}-{{ forloop.counter0  }}"
+                width: 50px;" id="{{ forloop.parentloop.counter0  }}{{ forloop.counter0  }}"
                 onclick="onSelect({{forloop.parentloop.counter0}}, {{forloop.counter0}})">
         </div>
         {% endfor %}

@@ -57,8 +57,10 @@ Register Page
         if (gpwd_set.has(res)) {
             console.log('true');
             gpwd_set.delete(res);
+            document.getElementById(res).style.border = null;
         } else {
             gpwd_set.add(res);
+            document.getElementById(res).style.border = "2px solid red";
         }
 
         console.log(gpwd_set);
