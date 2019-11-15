@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Password Reset Request
+{% endblock %}
+
+
+{% block content %}
+<div class="mx-auto" style="width: 400px; padding: 32px 0px">
+    <div class="content-section">
+        <form class="" action="" method="post">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Reset Request</legend>
+            </fieldset>
+
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" name="username" id="username">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" value="Submit" class="btn btn-outline-info">Request</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
