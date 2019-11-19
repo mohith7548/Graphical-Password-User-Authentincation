@@ -10,7 +10,7 @@ import random, uuid
 
 def get_pwd_imgs():
     # These images are just to confuse the attacker
-    images = random.sample(range(1, 50), N * N)
+    images = random.sample(range(1, 39), N * N)
     print(images)
     p_images = []
     for i in range(0, N * N, N):
@@ -55,7 +55,7 @@ def sendLoginLinkMailToUser(username):
             Click the Link to Login to your account directly.
             The link is one-time clickable
             link: http://{}:8000/login/{}
-            '''.format(ALLOWED_HOSTS[0], link), # might wanna change the allowd_host
+            '''.format(ALLOWED_HOSTS[-1], link), # might wanna change the allowd_host
             from_email=EMAIL_HOST_USER,
             to=[user.email],
         )
@@ -80,7 +80,7 @@ def sendPasswordResetLinkToUser(username):
         Click the Link to reset your password directly.
         The link is one-time clickable
         link: http://{}:8000/reset/{}
-        '''.format(ALLOWED_HOSTS[0], link), # might wanna change the allowd_host
+        '''.format(ALLOWED_HOSTS[-1], link), # might wanna change the allowd_host
         from_email=EMAIL_HOST_USER,
         to=[user.email],
     )
