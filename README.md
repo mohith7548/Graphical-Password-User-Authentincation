@@ -1,4 +1,4 @@
-# Graphical User Authentincation
+# Graphical Password User Authentincation
 
 ### Setting up the environment :
   - Just make sure you have python installed on your system. 
