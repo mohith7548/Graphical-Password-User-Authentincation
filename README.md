@@ -25,13 +25,25 @@ python manage.py runserver
 ```
 
 ### Email functionality setup:
-Earlier, I was using my Google account credentials for sending out emails. Now, Google will not allow us to directly use one's credentials, instead, we must create an app by heading over to [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) and this will generate a password. Copy it somewhere.
+1. Earlier, I was using my Google account credentials for sending out emails. Now, Google will not allow us to directly use one's credentials, instead, we must create an app by heading over to [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) and this will generate a password. Copy it somewhere.
 
-Now, whatever machine you might be using, just set these two environment variables: `EMAIL_USER` & `EMAIL_PASS` as your gmail address and the app password you copied earlier.
+
+    <br> <br>
+    Create a new App
+    ![](screenshots/email1.png)
+    <br> Copy the password
+    ![](screenshots/email2.png)
+
+    <br>
+
+2. Now, whatever machine you might be using, just set these two environment variables: `EMAIL_USER` & `EMAIL_PASS` as your gmail address and the app password you copied earlier.
 These two variables will be picked up by the Django app at runtime.
+
+    For more details check this [guide](https://chlee.co/how-to-setup-environment-variables-for-windows-mac-and-linux/) on how to add environment variables.
 
 Feel free to explore alternate options for sending emails like [django-anymail](https://github.com/anymail/django-anymail)
 
+---
 ---
 
 ## Introduction
