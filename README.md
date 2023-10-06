@@ -1,5 +1,39 @@
 # Graphical Password Authentincation
 
+## Setup Guide
+Copy & Paste the below commands step by step.
+
+```bash
+# clone repo
+git clone https://github.com/mohith7548/Graphical-Password-User-Authentincation
+
+# Navigate to the folder
+cd Graphical-Password-User-Authentincation
+
+# Install dependencies; honestly this itself suffice to run this project, hence there's no requirements.txt file in here
+pip install Django
+
+# djanog stuff for database creation
+python manage.py makemigrations
+python manage.py migrate
+
+# create admin account - Create a login to use on admin page
+python manage.py createsuperuser
+
+# Run Django server
+python manage.py runserver
+```
+
+### Email functionality setup:
+Earlier, I was using my Google account credentials for sending out emails. Now, Google will not allow us to directly use one's credentials, instead, we must create an app by heading over to [https://myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) and this will generate a password. Copy it somewhere.
+
+Now, whatever machine you might be using, just set these two environment variables: `EMAIL_USER` & `EMAIL_PASS` as your gmail address and the app password you copied earlier.
+These two variables will be picked up by the Django app at runtime.
+
+Feel free to explore alternate options for sending emails like [django-anymail](https://github.com/anymail/django-anymail)
+
+---
+
 ## Introduction
 A Graphical Password Authentication system is an authentication system that uses some combination of graphical images replacing the regular passwords. Graphical passwords may offer better security than text-based passwords because most of the people use regular, popular passwords everywhere and are prone to social engineering attacks. So graphical passwords can put stop to many attacks of this kind.
 
